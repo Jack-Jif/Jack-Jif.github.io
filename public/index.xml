@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Mgeek的博客</title>
+		<link>http://localhost:1313/</link>
+		<description>Recent content on Mgeek的博客</description>
+		<generator>Hugo</generator>
+		<language>zh-CN</language>
+		
+		
+		
+		
+			<lastBuildDate>Sat, 19 Sep 2026 21:51:04 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>搭建博客</title>
+				<link>http://localhost:1313/posts/2026/09/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</link>
+				<pubDate>Sat, 19 Sep 2026 21:51:04 +0800</pubDate>
+				<guid>http://localhost:1313/posts/2026/09/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</guid>
+				<description>搭建了自己的博客，这里写下第一篇博客文章</description>
+			</item>
+			<item>
+				<title>关于我</title>
+				<link>http://localhost:1313/about/</link>
+				<pubDate>Sat, 19 Sep 2026 20:08:07 +0800</pubDate>
+				<guid>http://localhost:1313/about/</guid>
+				<description>&lt;p&gt;你好，我是一名编程业余爱好者。&lt;/p&gt;&#xA;&lt;p&gt;这是我的个人博客，主要记录：&lt;/p&gt;&#xA;&lt;p&gt;-Python学习&lt;/p&gt;&#xA;&lt;p&gt;-生活随笔&lt;/p&gt;&#xA;&lt;p&gt;-读书笔记&lt;/p&gt;&#xA;&lt;p&gt;-个人成长&lt;/p&gt;&#xA;&lt;p&gt;-机械设计&lt;/p&gt;&#xA;&lt;p&gt;-3D打印与DIY&lt;/p&gt;&#xA;&lt;p&gt;欢迎志同道合的朋友！&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,95 @@
+baseURL = "http://localhost:1313/"
+languageCode = "zh-CN"
+defaultContentLanguage = "zh"
+title = "Mgeek的博客"
+theme = "ananke"
+
+hasCJKLanguage = true
+enableRobotsTXT = true
+enableEmoji = true
+
+# 文章默认永久链接
+[permalinks]
+  posts = "/posts/:year/:month/:slug/"
+
+# 分类和标签
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+# 分页
+[pagination]
+  pagerSize = 10
+
+# Markdown 配置
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# Ananke 主题配置
+[params]
+  author = "Mgeek"
+  description = "记录技术、学习和生活的个人博客"
+  favicon = "/images/favicon.ico"
+
+  # 首页显示多少篇文章
+  recent_posts_number = 6
+
+  # 是否显示阅读时间
+  show_reading_time = true
+
+  # 是否显示文章目录
+  show_toc = true
+
+  # Ananke 顶部背景色
+  background_color_class = "bg-dark-gray"
+
+  # 页面整体字体和背景风格
+  body_classes = "avenir bg-near-white"
+
+  # 文章正文样式
+  post_content_classes = "avenir"
+
+  # 首页顶部背景图片
+  featured_image = "/images/header.jpg"
+
+  # 页脚是否隐藏
+  omit_footer = false
+
+  # 添加头像
+  name = "Mgeek"
+  avatar = "/images/avatar.jpg"
+  
+  # 启用数学公式
+  math = true
+
+  # 设置阅读速度
+  reading_speed = 300
+
+ [menu]
+
+  [[menu.main]]
+    name = "首页"
+    url = "/"
+    weight = 10
+
+  [[menu.main]]
+    name = "文章"
+    url = "/posts/"
+    weight = 20
+
+  [[menu.main]]
+    name = "分类"
+    url = "/categories/"
+    weight = 30
+
+  [[menu.main]]
+    name = "标签"
+    url = "/tags/"
+    weight = 40
+
+  [[menu.main]]
+    name = "关于我"
+    url = "/about/"
+    weight = 50

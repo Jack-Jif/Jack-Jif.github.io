@@ -1,0 +1,136 @@
+{{ define "header" }}
+  {{/* 可以在这里覆盖 baseof.html 中定义的 header 区块 */}}
+  {{ partials.Include "page-header.html" . }}
+{{ end }}
+
+{{ define "main" }}
+  {{- $related_content := .RegularPages.Related . -}}
+  {{- $needs_aside := or .Params.toc $related_content -}}
+  {{- $page := . -}}
+  {{- $section := .Site.GetPage "section" .Section -}}
+
+  {{/* 为文章生成唯一的 CSS class */}}
+  {{- $post_class := "" -}}
+  {{- with .File -}}
+    {{- $post_class = printf "page-%s" .ContentBaseName -}}
+  {{- end -}}
+
+  <article class="{{ $post_class }} flex-l {{ if $needs_aside }}mw8{{ else }}mw7{{ end }} center ph3 flex-wrap justify-between">
+    <header class="mt4 w-100">
+
+      {{/* 文章所属栏目链接 */}}
+      {{- partials.Include "hook.html" (dict "hook" "article/section-link" "context" .) -}}
+
+      {{/* 分享按钮 */}}
+      {{- partials.IncludeCached "social/share.html" . . -}}
+
+      {{/* 文章标题 */}}
+      <h1 class="f1 athelas mt3 mb1">
+        {{- .Title -}}
+      </h1>
+
+      {{/* 作者信息 */}}
+      {{ with .Params.author | compare.Default .Site.Params.author }}
+      <p class="tracked">
+
+        {{/* 只有部分西方语言显示 by，中文不显示 */}}
+        {{- if compare.Eq $page.Language "de" "en" "es" "fr" "it" "no" "pt" -}}
+          {{- lang.Translate "by" -}}
+        {{ end -}}
+
+        <strong>
+          {{- if reflect.IsSlice . -}}
+            {{ collections.Delimit . ", " | transform.Markdownify }}
+          {{- else -}}
+            {{ . | transform.Markdownify }}
+          {{- end -}}
+        </strong>
+      </p>
+      {{ end }}
+
+      {{/* 发布日期 */}}
+      {{ if partials.Include "func/ShowDate.html" . }}
+      <time
+        class="f6 mv4 dib tracked"
+        {{ fmt.Printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safe.HTMLAttr }}>
+        {{- .Date.Format "2006年1月2日" -}}
+      </time>
+      {{ end }}
+
+      {{/*
+        显示阅读时间和文章字数。
+
+        满足以下任意条件时显示：
+        1. 页面配置 show_reading_time = true；
+        2. 所属栏目配置 show_reading_time = true；
+        3. 网站全局配置 show_reading_time = true。
+      */}}
+      {{ if or
+        (compare.Eq (.Param "show_reading_time") true)
+        (compare.Eq $section.Params.show_reading_time true)
+        (compare.Eq .Site.Params.show_reading_time true)
+      }}
+
+        {{/* Hugo 根据文章内容自动计算阅读时间 */}}
+        {{- $readingTime := .ReadingTime -}}
+
+        {{/* 如果配置了 reading_speed，则按照指定阅读速度重新计算 */}}
+        {{- with .Site.Params.reading_speed -}}
+          {{- $readingTime = div (float $.WordCount) . -}}
+          {{- $readingTime = math.Ceil $readingTime -}}
+          {{- $readingTime = int $readingTime -}}
+        {{- end -}}
+
+        <span class="f6 mv4 dib tracked">
+          · 阅读时间：{{ $readingTime }} 分钟
+        </span>
+
+        <span class="f6 mv4 dib tracked">
+          · 字数：{{ .WordCount }}
+        </span>
+
+      {{ end }}
+    </header>
+
+    {{/* 文章正文 */}}
+    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes" | compare.Default "serif" }} f4 nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }} {{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pl4-l" "pr4-l" }} {{ if $needs_aside }}w-two-thirds-l{{ else }}w-100-l{{ end }}">
+
+      {{/* 正文之前的扩展钩子 */}}
+      {{- partials.Include "hook.html" (dict "hook" "content-before" "context" .) -}}
+
+      {{/* Markdown 正文内容 */}}
+      {{- .Content -}}
+
+      {{/* 正文之后的扩展钩子 */}}
+      {{- partials.Include "hook.html" (dict "hook" "content-after" "context" .) -}}
+
+      {{/* 分类 */}}
+      {{- partials.Include "categories.html" . -}}
+
+      {{/* 标签 */}}
+      {{- partials.Include "tags.html" . -}}
+
+      {{/* Disqus 评论 */}}
+      {{ if .Site.Config.Services.Disqus.Shortname }}
+      <div class="mt6 instapaper_ignoref">
+        {{ partials.Include "disqus.html" . }}
+      </div>
+      {{ end }}
+
+      {{/* Commento 评论 */}}
+      {{ if .Site.Params.commentoEnable }}
+      <div class="mt6 instapaper_ignoref">
+        {{- partials.Include "commento.html" . -}}
+      </div>
+      {{ end }}
+    </div>
+
+    {{/* 右侧目录或相关文章 */}}
+    {{- if $needs_aside -}}
+    <aside class="w-30-l mt6-l">
+      {{- partials.Include "menu-contextual.html" . -}}
+    </aside>
+    {{- end -}}
+
+  </article>
+{{ end }}
