@@ -1,0 +1,21 @@
+# Hugo 构建目录
+/public/
+
+# Hugo 缓存和临时文件
+/resources/_gen/
+.hugo_build.lock
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# 编辑器配置
+.vscode/
+.idea/
+
+# 环境变量和本地配置
+.env
+.env.*
+
+# 日志文件
+*.log
